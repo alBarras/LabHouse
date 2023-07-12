@@ -36,7 +36,7 @@ class MovingBezierBackground extends StatefulWidget {
 }
 
 class _MovingBezierBackgroundState extends State<MovingBezierBackground> {
-  double bezierLinesProgressVelocity = 0.001; //0.001; //speed in which the bezier curves move
+  double bezierLinesProgressVelocity = 0.0003; //speed in which the bezier curves move
   Duration bezierLinesProgressTickDuration = const Duration(milliseconds: 1); //how often the screen refreshes
   Duration bezierLinesProgressTotalDuration = const Duration(days: 365); // we want it to be infinity, but 1 year seems fair enough
   var sub;
