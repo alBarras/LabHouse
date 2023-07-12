@@ -6,7 +6,7 @@ import 'package:labhouse_albert/apis/openai/model_openAi_completionsResponse.dar
 import 'package:labhouse_albert/utils.dart';
 
 class OpenaiApi {
-  static bool showDebugMessages = false;
+  static bool showDebugMessages = true;
   static final Uri completionsEndpoint = Uri.parse('https://api.openai.com/v1/completions');
   static final Map<String, String> headers = {
     'Content-Type': 'application/json',
@@ -29,6 +29,7 @@ class OpenaiApi {
     if (showDebugMessages) print("   OpenAI: waiting for response...");
     try {
       http.Response response = await http.post(completionsEndpoint, headers: headers, body: request);
+      if (showDebugMessages) print("   OpenAI response.statusCode: ${response.statusCode}");
       //Response
       if (response.statusCode == 200) {
         String? responseStr = ModelCompletionsResponse.fromResponse(response).firstCompletion?.trim();

@@ -226,24 +226,26 @@ class _HomeScreen extends State<HomeScreen> with TickerProviderStateMixin {
     }
     //normal case
     OpenaiApi.getItemsWithKeywordList(_inputText, _inputAmount!, 50, _lastCallNum).then((response) async {
-      List<List<String>> itemsWithKeywordList = response[0];
-      int callNum = response[1];
-      if (!_loading || callNum != _lastCallNum) {
-        //if this is the response from a cancelled query, ignore it
-        return;
-      }
-      if (itemsWithKeywordList.isNotEmpty) {
-        //get an image URL and create a ModelParallaxItem for each item
-        List<String> picUrls = await UnsplashApi.queryListOfPics(itemsWithKeywordList[1], 2);
-        if (!picUrls.contains("")) {
-          List<ModelParallaxItem> modelParallaxItems = [];
-          for (int i = 0; i < itemsWithKeywordList[0].length; i++) {
-            modelParallaxItems.add(ModelParallaxItem(name: itemsWithKeywordList[0][i], imageUrl: picUrls[i], description: itemsWithKeywordList[2][i]));
-          }
-          showNewResults(modelParallaxItems);
+      try {
+        List<List<String>> itemsWithKeywordList = response[0];
+        int callNum = response[1];
+        if (!_loading || callNum != _lastCallNum) {
+          //if this is the response from a cancelled query, ignore it
           return;
         }
-      }
+        if (itemsWithKeywordList.isNotEmpty) {
+          //get an image URL and create a ModelParallaxItem for each item
+          List<String> picUrls = await UnsplashApi.queryListOfPics(itemsWithKeywordList[1], 2);
+          if (!picUrls.contains("")) {
+            List<ModelParallaxItem> modelParallaxItems = [];
+            for (int i = 0; i < itemsWithKeywordList[0].length; i++) {
+              modelParallaxItems.add(ModelParallaxItem(name: itemsWithKeywordList[0][i], imageUrl: picUrls[i], description: itemsWithKeywordList[2][i]));
+            }
+            showNewResults(modelParallaxItems);
+            return;
+          }
+        }
+      } catch (e) {}
       //Error
       showDialog(
         context: context,
