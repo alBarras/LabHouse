@@ -48,14 +48,36 @@ class InputScreen extends StatefulWidget {
   }
 }
 
-class _InputScreen extends State<InputScreen> {
+class _InputScreen extends State<InputScreen> with SingleTickerProviderStateMixin {
   final int MIN_QUERY_LENGTH = 2;
   final int MAX_QUERY_LENGTH = 75;
   final int MIN_INPUT_AMOUNT = 5;
   final int MAX_INPUT_AMOUNT = 30;
 
+  //Previous List Handle Animation
+  late AnimationController _prevListAnimationController;
+  late Animation<Offset> _prevListAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    //Previous List Handle Animation
+    _prevListAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+    Offset initialTranslation = const Offset(0.0, 0.1);
+    Offset finalTranslation = const Offset(0.0, 0.0);
+    final tween = Tween<Offset>(begin: initialTranslation, end: finalTranslation); //interpolation
+    _prevListAnimation = tween.animate(_prevListAnimationController);
+  }
+
   @override
   Widget build(BuildContext context) {
+    //if the previous list is finished hiding, start the animation of this handle so it appears and the user is able to open the list again
+    if (widget.modelParallaxItems.isNotEmpty && widget.animationController.isDismissed) {
+      _prevListAnimationController.forward();
+    }
     return _buildInputScreenContent();
   }
 
@@ -81,7 +103,7 @@ class _InputScreen extends State<InputScreen> {
                           Shadow(
                             color: SHADOW_COLOR,
                             blurRadius: 5,
-                            offset: Offset(2, 2), // Adjust the position of the shadow
+                            offset: Offset(2, 2),
                           ),
                         ],
                         color: TITLE_TEXT_COLOR,
@@ -93,6 +115,7 @@ class _InputScreen extends State<InputScreen> {
                 ],
               ),
             ),
+
             //Input
             Column(
               children: [
@@ -102,6 +125,7 @@ class _InputScreen extends State<InputScreen> {
                 Row(
                   children: [
                     const Spacer(),
+
                     //Input Text
                     CustomTextInput(
                       title: INPUT_TEXT_TITLE,
@@ -138,7 +162,7 @@ class _InputScreen extends State<InputScreen> {
                       Shadow(
                         color: LIGHT_SHADOW_COLOR,
                         blurRadius: 5,
-                        offset: Offset(2, 2), // Adjust the position of the shadow
+                        offset: Offset(2, 2),
                       ),
                     ],
                   ),
@@ -147,6 +171,7 @@ class _InputScreen extends State<InputScreen> {
                 Row(
                   children: [
                     const Spacer(),
+                    //Decrease Amount Items
                     CustomButton(
                       width: 40,
                       height: 40,
@@ -163,6 +188,7 @@ class _InputScreen extends State<InputScreen> {
                       },
                     ),
                     const SizedBox(width: 10),
+                    //Amount Items
                     SizedBox(
                       width: 20,
                       child: Text(
@@ -176,6 +202,7 @@ class _InputScreen extends State<InputScreen> {
                       ),
                     ),
                     const SizedBox(width: 10),
+                    //Increase Amount Items
                     CustomButton(
                       width: 40,
                       height: 40,
@@ -195,6 +222,7 @@ class _InputScreen extends State<InputScreen> {
                   ],
                 ),
                 const Spacer(),
+
                 //Proceed Button
                 Visibility(
                   visible: !widget.loading,
@@ -208,6 +236,7 @@ class _InputScreen extends State<InputScreen> {
                     },
                   ),
                 ),
+
                 //Loading Indicator (showed in any waiting scenario)
                 Visibility(
                   visible: widget.loading,
@@ -218,6 +247,7 @@ class _InputScreen extends State<InputScreen> {
                     ],
                   ),
                 ),
+
                 //Cancel Button
                 Visibility(
                   visible: widget.loading,
@@ -233,43 +263,50 @@ class _InputScreen extends State<InputScreen> {
                   ),
                 ),
                 const Spacer(),
+
                 //LabHouse Logo
                 Image.asset('assets/img/labhouse_logo_big.png'),
                 const SizedBox(height: 50),
               ],
             ),
 
-            //Reopen last loaded list
-            Visibility(
-              visible: widget.modelParallaxItems.isNotEmpty && widget.animationController.isDismissed,
-              child: Column(
-                children: [
-                  const Spacer(),
-                  Stack(
+            //Already Loaded & Hidden List Handle
+            AnimatedBuilder(
+              animation: _prevListAnimationController,
+              builder: (BuildContext context, Widget? child) {
+                //slide in handle
+                return FractionalTranslation(
+                  translation: _prevListAnimation.value,
+                  child: Column(
                     children: [
-                      SizedBox(
-                        height: LIST_HANDLE_HEIGHT_SIZE,
-                        width: widget.screenWidth,
-                        child: BezierHandle(
-                          color: MAIN_COLOR_WHITE,
-                          screenHeight: widget.screenHeight,
-                        ),
-                      ),
-                      Center(
-                        child: GestureDetector(
-                          child: const Icon(Icons.keyboard_arrow_up_rounded, size: 50),
-                          onTap: () {
-                            widget.showPreviousResults();
-                          },
-                          onVerticalDragDown: (b) {
-                            widget.showPreviousResults();
-                          },
-                        ),
+                      const Spacer(),
+                      Stack(
+                        children: [
+                          SizedBox(
+                            height: LIST_HANDLE_HEIGHT_SIZE,
+                            width: widget.screenWidth,
+                            child: BezierHandle(
+                              color: MAIN_COLOR_WHITE,
+                              screenHeight: widget.screenHeight,
+                            ),
+                          ),
+                          Center(
+                            child: GestureDetector(
+                              child: const Icon(Icons.keyboard_arrow_up_rounded, size: 50),
+                              onTap: () {
+                                showPreviousResults();
+                              },
+                              onVerticalDragDown: (b) {
+                                showPreviousResults();
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
+                );
+              },
             ),
           ],
         );
@@ -280,7 +317,7 @@ class _InputScreen extends State<InputScreen> {
   checkAndProcessInputText() {
     //Check there is internet
     checkInternet();
-    //Check not initializing still
+    //Check initialized already
     if (widget.inputAmount == null) return;
     //Check minimum query length
     if (widget.inputText.length < MIN_QUERY_LENGTH && !widget.isDebugImages) {
@@ -311,5 +348,10 @@ class _InputScreen extends State<InputScreen> {
         widget.noInternet();
       }
     });
+  }
+
+  showPreviousResults() {
+    widget.showPreviousResults();
+    _prevListAnimationController.reverse();
   }
 }

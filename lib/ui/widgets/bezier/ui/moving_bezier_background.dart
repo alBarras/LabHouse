@@ -306,6 +306,7 @@ class _MovingBezierBackgroundState extends State<MovingBezierBackground> {
     );
   }
 
+  //make Bezier curves move
   void _startBezierProgressTimer() {
     CountdownTimer countDownTimer = CountdownTimer(
       bezierLinesProgressTotalDuration, //total duration (after this single time => onDone())

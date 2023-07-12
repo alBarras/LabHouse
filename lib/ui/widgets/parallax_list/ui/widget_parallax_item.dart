@@ -3,7 +3,7 @@ import 'package:labhouse_albert/code_assets/colors.dart';
 import 'package:labhouse_albert/code_assets/durations.dart';
 import 'package:labhouse_albert/code_assets/sizes.dart';
 import 'package:labhouse_albert/ui/widgets/parallax_list/model/model_parallax_item.dart';
-import 'package:labhouse_albert/ui/widgets/parallax_list/ui/parallax_flow_delegate.dart';
+import 'package:labhouse_albert/ui/widgets/parallax_list/model/parallax_flow_delegate.dart';
 import 'package:labhouse_albert/utils.dart';
 
 class WidgetParallaxItem extends StatefulWidget {
@@ -111,7 +111,7 @@ class _WidgetParallaxItemState extends State<WidgetParallaxItem> with SingleTick
                   color: SHADOW_COLOR,
                   spreadRadius: 2,
                   blurRadius: 4,
-                  offset: Offset(5, 5), // Adjust the position of the shadow
+                  offset: Offset(5, 5),
                 ),
               ],
             ),

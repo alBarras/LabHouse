@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//General Theme
 const Color MAIN_COLOR_33 = Color.fromARGB(255, 52, 37, 85);
 const Color MAIN_COLOR_60 = Color.fromARGB(255, 84, 73, 109);
 const Color MAIN_COLOR_80 = Color.fromARGB(255, 122, 85, 196);

@@ -35,27 +35,22 @@ class CustomDialog extends StatefulWidget {
 class _CustomDialog extends State<CustomDialog> {
   @override
   Widget build(BuildContext context) {
-    //default quitsDialog
+    //Default values
     if ((widget.quitsDialog == null || widget.quitsDialog == List.empty()) && widget.buttonTexts != null) {
       widget.quitsDialog = [];
       for (int i = 0; i < widget.buttonTexts!.length; i++) {
         widget.quitsDialog!.add(true);
       }
     }
-    //default buttonTextColors
     if (widget.buttonTexts != null) {
       widget.buttonTextColors = [];
       for (int i = 0; i < widget.buttonTexts!.length; i++) {
         widget.buttonTextColors!.add(defaultButtonTextColors);
       }
     }
-    //default quit button color
     widget.quitDialogButtonColor = defaultQuitDialogButtonColor;
-    //defaul bgColor
     widget.bgColor ??= defaultBgColor;
-    //defaul borderColor
     widget.borderColor ??= defaultBorderColor;
-    //defaul borderStroke
     widget.borderStroke ??= defaultBorderStroke;
 
     Text? title, msg;

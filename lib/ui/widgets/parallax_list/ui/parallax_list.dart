@@ -96,6 +96,7 @@ class _ParallaxListState extends State<ParallaxList> {
               children: widgetParallaxItems,
             ),
           ),
+          //Scroll down to hide indicator
           AnimatedOpacity(
             opacity: _alreadyOnListTop && _alreadyScrolledDown ? 1 : 0, //visible when back on top after scrolled down at least once
             duration: const Duration(milliseconds: 500),
@@ -105,6 +106,7 @@ class _ParallaxListState extends State<ParallaxList> {
                 Row(
                   children: [
                     const Spacer(),
+                    //Shadow
                     Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
@@ -116,6 +118,7 @@ class _ParallaxListState extends State<ParallaxList> {
                           ),
                         ],
                       ),
+                      //Text & Arrows
                       child: Row(
                         children: [
                           AnimatedUpDownWidget(

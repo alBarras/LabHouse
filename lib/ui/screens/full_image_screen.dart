@@ -38,12 +38,14 @@ class _FullImageScreen extends State<FullImageScreen> {
           opacity: widget.animationController.value,
           child: Stack(
             children: [
+              //Close full image if tapped on background
               InkWell(
                 child: Container(color: WHITE_SHADOW_BACKGROUND),
                 onTap: () {
                   widget.close();
                 },
               ),
+              //Centered with shadow Container
               Center(
                 child: Container(
                   margin: const EdgeInsets.all(25),
@@ -54,10 +56,11 @@ class _FullImageScreen extends State<FullImageScreen> {
                         color: SHADOW_COLOR,
                         spreadRadius: 2,
                         blurRadius: 4,
-                        offset: Offset(5, 5), // Adjust the position of the shadow
+                        offset: Offset(5, 5),
                       ),
                     ],
                   ),
+                  //Rounded Image
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(CARD_RADIUS_SIZE),
                     child: Stack(
@@ -78,12 +81,14 @@ class _FullImageScreen extends State<FullImageScreen> {
                             ),
                           ),
                         ),
+                        //Texts
                         Positioned(
                           left: 20,
                           bottom: 10,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              //Title Text
                               SizedBox(
                                 width: widget.screenWidth * 0.8,
                                 child: Text(
@@ -95,6 +100,7 @@ class _FullImageScreen extends State<FullImageScreen> {
                                   ),
                                 ),
                               ),
+                              //Description Text
                               Visibility(
                                 visible: widget.item != null && widget.item!.description != null && widget.item!.description!.isNotEmpty,
                                 child: Column(
@@ -119,6 +125,7 @@ class _FullImageScreen extends State<FullImageScreen> {
                             ],
                           ),
                         ),
+                        //Close Button
                         Padding(
                           padding: const EdgeInsets.all(10),
                           child: Row(

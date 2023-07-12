@@ -22,7 +22,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> with TickerProviderStateMixin {
-  static bool debugImages = false;
+  static bool debugImages = true;
   static late final _sharedPreferences;
   late double _screenHeight, _screenWidth;
 
@@ -47,14 +47,15 @@ class _HomeScreen extends State<HomeScreen> with TickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    //shared prefs
+    //Shared prefs
     SharedPreferences.getInstance().then((sp) {
       _sharedPreferences = sp;
       _inputAmount = _sharedPreferences.getInt(LABHOUSE_HOME_SCREEN_INPUT_AMOUNT) ?? 10;
       _sharedPreferences.setInt(LABHOUSE_HOME_SCREEN_INPUT_AMOUNT, _inputAmount);
       setState(() {});
     });
-    //output screen animation
+
+    //Output screen animation
     _outputScreenAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 1),
@@ -67,7 +68,8 @@ class _HomeScreen extends State<HomeScreen> with TickerProviderStateMixin {
         });
       }
     });
-    //full image animation
+
+    //Full image animation
     _fullImageAnimationController = AnimationController(
       vsync: this,
       duration: OPACITY_ANIMATION_DURATION,
@@ -153,6 +155,7 @@ class _HomeScreen extends State<HomeScreen> with TickerProviderStateMixin {
           loading: _loading,
           modelParallaxItems: _modelParallaxItems,
         ),
+
         //Output Screen
         Visibility(
           visible: !_hideOutputScreenTotally,
@@ -178,6 +181,7 @@ class _HomeScreen extends State<HomeScreen> with TickerProviderStateMixin {
             animationController: _outputScreenAnimationController,
           ),
         ),
+
         //Full Image Screen
         Visibility(
           visible: _fullImageItem != null,
@@ -201,7 +205,7 @@ class _HomeScreen extends State<HomeScreen> with TickerProviderStateMixin {
       child: GestureDetector(
         onTap: () {
           try {
-            FocusManager.instance.primaryFocus?.unfocus(); //hide keyboard
+            FocusManager.instance.primaryFocus?.unfocus();
           } catch (e) {}
         },
         child: contentWidget,
@@ -252,6 +256,7 @@ class _HomeScreen extends State<HomeScreen> with TickerProviderStateMixin {
     });
   }
 
+  //Show the already previously loaded list
   showPreviousResults() {
     setState(() {
       _inputText = _originalInputText; //set the previous input text too
@@ -260,6 +265,7 @@ class _HomeScreen extends State<HomeScreen> with TickerProviderStateMixin {
     });
   }
 
+  //Show a newly loaded list
   showNewResults(List<ModelParallaxItem> modelParallaxItems) {
     _originalInputText = _inputText; //save the original input text in case we repoen the list
     setState(() {
@@ -270,6 +276,7 @@ class _HomeScreen extends State<HomeScreen> with TickerProviderStateMixin {
     });
   }
 
+  //Hide the current list, will be an option to show it again
   hideResults() {
     setState(() {
       _hideListItems = true;

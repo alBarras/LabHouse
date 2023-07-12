@@ -37,7 +37,7 @@ class _OutputScreen extends State<OutputScreen> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    Offset initialTranslation = const Offset(0.0, 0.8);
+    Offset initialTranslation = const Offset(0.0, 1);
     Offset finalTranslation = const Offset(0.0, 0.0);
     final tween = Tween<Offset>(begin: initialTranslation, end: finalTranslation); //interpolation
     _animation = tween.animate(widget.animationController);
@@ -63,7 +63,7 @@ class _OutputScreen extends State<OutputScreen> with TickerProviderStateMixin {
         Column(
           children: [
             const SizedBox(height: MIN_TOP_SCREEN_PAD_SIZE + QUERY_TEXT_LINES_NUM * 50),
-            //list handle
+            //List Handle
             Stack(
               children: [
                 SizedBox(
@@ -87,7 +87,7 @@ class _OutputScreen extends State<OutputScreen> with TickerProviderStateMixin {
                 ),
               ],
             ),
-            //actual list
+            //Actual List
             Expanded(
               child: Container(
                 color: MAIN_COLOR_WHITE,
@@ -105,7 +105,7 @@ class _OutputScreen extends State<OutputScreen> with TickerProviderStateMixin {
             ),
           ],
         ),
-        //there is a small non-collored line between the handle and the actual list which we hide with the following container
+        //There is a small non-collored line between the handle and the actual list which we hide with the following container
         Container(
           margin: const EdgeInsets.only(top: MIN_TOP_SCREEN_PAD_SIZE + QUERY_TEXT_LINES_NUM * 50 + LIST_HANDLE_HEIGHT_SIZE - LIST_HANDLE_EMBELLISHER_HEIGHT_SIZE / 2),
           height: LIST_HANDLE_EMBELLISHER_HEIGHT_SIZE,

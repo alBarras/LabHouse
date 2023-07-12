@@ -20,6 +20,7 @@ class _CustomBackgroundState extends State<CustomBackground> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        //Static background
         GradientBackground(
           colorBotLeft: MAIN_COLOR_33,
           colorTopRight: MAIN_COLOR_60,
@@ -28,6 +29,7 @@ class _CustomBackgroundState extends State<CustomBackground> {
           screenWidth: widget.screenWidth,
           screenHeight: widget.screenHeight,
         ),
+        //Moving background
         MovingBezierBackground(
           colorTop: BEZIER_BACKGROUND_A,
           colorMid: BEZIER_BACKGROUND_B,
