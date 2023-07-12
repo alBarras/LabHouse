@@ -6,7 +6,7 @@ import 'package:labhouse_albert/apis/openai/model_openAi_completionsResponse.dar
 import 'package:labhouse_albert/utils.dart';
 
 class OpenaiApi {
-  static bool showDebugMessages = true;
+  static bool showDebugMessages = false;
   static final Uri completionsEndpoint = Uri.parse('https://api.openai.com/v1/completions');
   static final Map<String, String> headers = {
     'Content-Type': 'application/json',
