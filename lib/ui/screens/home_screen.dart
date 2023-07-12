@@ -173,6 +173,9 @@ class _HomeScreen extends State<HomeScreen> with TickerProviderStateMixin {
               hideResults();
             },
             showFullImage: (modelParallaxItem) {
+              //avoid showing images if the list is already hiding
+              if (!_outputScreenAnimationController.isCompleted) return;
+              //actually show the full image
               setState(() {
                 _fullImageItem = modelParallaxItem;
               });
