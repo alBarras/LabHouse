@@ -22,7 +22,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreen extends State<HomeScreen> with TickerProviderStateMixin {
-  static bool debugImages = true;
+  static bool debugImages = false;
   static late final _sharedPreferences;
   late double _screenHeight, _screenWidth;
 
