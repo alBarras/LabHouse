@@ -1,0 +1,7 @@
+const double CARD_RADIUS_SIZE = 16;
+
+const double MIN_TOP_SCREEN_PAD_SIZE = 75;
+const int QUERY_TEXT_LINES_NUM = 2;
+const double AFTER_QUERY_TEXT_HEIGHT_SIZE = 25;
+const double LIST_HANDLE_HEIGHT_SIZE = 50;
+const double LIST_HANDLE_EMBELLISHER_HEIGHT_SIZE = 5;

@@ -1,0 +1,45 @@
+name: labhouse_albert
+description: A new Flutter project.
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ">=3.0.5 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  #App Icon
+  flutter_launcher_icons: ^0.9.3
+  #Splash Screen
+  flutter_native_splash: ^2.0.5
+  #Timer
+  quiver: ^3.0.1+1
+  #Store in device
+  shared_preferences: ^2.0.13
+  #Check connectivity
+  connectivity: ^3.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  http: ^1.1.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/img/
+
+#App Icon (remeber to run: 'flutter pub run flutter_launcher_icons:main')
+flutter_icons:
+  image_path_android: "assets/img/labhouse_logo.png"
+  image_path_ios: "assets/img/labhouse_logo.png"
+  remove_alpha_ios: false
+  android: true
+  ios: true
+
+#Splashscreen (remeber to run: 'flutter pub run flutter_native_splash:create')
+flutter_native_splash:
+  color: "#342555"
+  image: "assets/img/labhouse_logo.png"

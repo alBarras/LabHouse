@@ -1,0 +1,22 @@
+{
+    "colorTabs.config": [
+        {
+            "regex": ".*",
+            "color": "#561a8a",
+        },
+        {
+            "regex": ".*/web/.*"
+        },
+        {
+            "regex": ".*/mobile/.*"
+        }
+    ],
+    "workbench.colorCustomizations": {
+        "tab.activeBorder": "#561a8a",
+        "titleBar.activeBackground": "#561a8a",
+        "titleBar.activeForeground": "#ffffff",
+        "statusBar.background": "#561a8a",
+        "statusBar.foreground": "#ffffff"
+    },
+    "cmake.sourceDirectory": "/Users/albert/FlutterProjects/labhouse/labhouse_albert/linux"
+}
