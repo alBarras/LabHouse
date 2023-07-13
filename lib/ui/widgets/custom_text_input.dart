@@ -11,6 +11,7 @@ class CustomTextInput extends StatefulWidget {
   TextEditingController controller;
   int maxLines, maxLength;
   double width;
+  bool? deactivated;
 
   CustomTextInput({
     super.key,
@@ -24,6 +25,7 @@ class CustomTextInput extends StatefulWidget {
     required this.width,
     this.onTap,
     this.onSubmitted,
+    this.deactivated,
   });
 
   @override
@@ -33,12 +35,10 @@ class CustomTextInput extends StatefulWidget {
 class _CustomTextInput extends State<CustomTextInput> {
   @override
   Widget build(BuildContext context) {
-    widget.controller.text = widget.initialText;
-    widget.controller.selection = TextSelection.fromPosition(TextPosition(offset: widget.controller.text.length));
-
     return SizedBox(
       width: widget.width,
       child: TextField(
+        readOnly: widget.deactivated != null && widget.deactivated!,
         onSubmitted: (b) {
           if (widget.onSubmitted != null) widget.onSubmitted!();
         },
@@ -49,9 +49,7 @@ class _CustomTextInput extends State<CustomTextInput> {
         onTap: () {
           if (widget.onTap != null) widget.onTap!();
         },
-        controller: widget.controller
-          ..text = widget.initialText
-          ..selection = TextSelection.fromPosition(TextPosition(offset: widget.controller.text.length)),
+        controller: widget.controller,
         keyboardType: TextInputType.text,
         maxLines: widget.maxLines,
         maxLength: widget.maxLength,

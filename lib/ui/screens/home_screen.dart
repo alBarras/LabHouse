@@ -34,6 +34,7 @@ class _HomeScreen extends State<HomeScreen> with TickerProviderStateMixin {
   bool _loading = false;
   int _lastCallNum = 0;
   String _inputText = "";
+  final TextEditingController _inputTextEditingController = TextEditingController();
   int? _inputAmount;
 
   //OUTPUT
@@ -112,9 +113,11 @@ class _HomeScreen extends State<HomeScreen> with TickerProviderStateMixin {
           screenWidth: _screenWidth,
           screenHeight: _screenHeight,
           isDebugImages: debugImages,
+          inputTextDeactivated: _loading,
           animationController: _outputScreenAnimationController,
           hideOutputScreenTotally: _hideOutputScreenTotally,
           inputText: _inputText,
+          textEditingController: _inputTextEditingController,
           inputTextChanged: (text) {
             setState(() {
               _inputText = text;
@@ -265,6 +268,7 @@ class _HomeScreen extends State<HomeScreen> with TickerProviderStateMixin {
   showPreviousResults() {
     setState(() {
       _inputText = _originalInputText; //set the previous input text too
+      _inputTextEditingController.text = _inputText;
       _hideOutputScreenTotally = false;
       _outputScreenAnimationController.forward();
     });

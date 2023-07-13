@@ -16,10 +16,10 @@ class InputScreen extends StatefulWidget {
   Function(String) inputTextChanged;
   VoidCallback hideResults, processInputText, noInternet, showPreviousResults, cancelLoading, decreaseInputAmount, increaseInputAmount;
   int? inputAmount;
-  bool loading;
-  bool isDebugImages;
+  bool loading, isDebugImages, inputTextDeactivated;
   List<ModelParallaxItem> modelParallaxItems;
   double screenWidth, screenHeight;
+  TextEditingController textEditingController;
 
   InputScreen({
     Key? key,
@@ -40,6 +40,8 @@ class InputScreen extends StatefulWidget {
     required this.screenWidth,
     required this.screenHeight,
     required this.isDebugImages,
+    required this.inputTextDeactivated,
+    required this.textEditingController,
   }) : super(key: key);
 
   @override
@@ -50,7 +52,7 @@ class InputScreen extends StatefulWidget {
 
 class _InputScreen extends State<InputScreen> with SingleTickerProviderStateMixin {
   final int MIN_QUERY_LENGTH = 2;
-  final int MAX_QUERY_LENGTH = 75;
+  final int MAX_QUERY_LENGTH = 200;
   final int MIN_INPUT_AMOUNT = 5;
   final int MAX_INPUT_AMOUNT = 30;
 
@@ -129,9 +131,10 @@ class _InputScreen extends State<InputScreen> with SingleTickerProviderStateMixi
                     //Input Text
                     CustomTextInput(
                       title: INPUT_TEXT_TITLE,
+                      deactivated: widget.inputTextDeactivated,
                       initialText: widget.inputText,
                       hintText: INPUT_TEXT_HINT,
-                      controller: TextEditingController(),
+                      controller: widget.textEditingController,
                       maxLines: QUERY_TEXT_LINES_NUM,
                       maxLength: MAX_QUERY_LENGTH,
                       width: 300,
